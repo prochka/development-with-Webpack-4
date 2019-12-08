@@ -1,4 +1,4 @@
-![screenshot of sample](http://images.constructionweb.ru/bgr_main.jpg)
+![template for rapid deployment](http://images.constructionweb.ru/bgr_m.jpg)
 <h1> Development-with-webpack-4</h1>
 template for rapid deployment
 <h3>How to use Configuration WEBPACK-4</h3>

@@ -1,3 +1,3 @@
 import 'bootstrap';
 import "../sass/style.scss";
-console.log('Это index');
+require.context("../images/", true, /\.(png|svg|jpg|gif)$/);

@@ -1,13 +1,16 @@
 // Webpack v4
 const path =                    require('path');
+const ProvidePlugin =           require('webpack-provide-global-plugin');
 const MiniCssExtractPlugin =    require('mini-css-extract-plugin');
 const FileManagerPlugin =       require('filemanager-webpack-plugin');
-const { CleanWebpackPlugin } =  require('clean-webpack-plugin');
+const {CleanWebpackPlugin} =    require('clean-webpack-plugin');
 const HtmlWebpackPlugin =       require('html-webpack-plugin');
 const WebpackMd5Hash =          require('webpack-md5-hash');
 
 module.exports = {
-    entry: { main: './src/js/index.js' },
+    entry: {
+        main: './src/js/index.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].[chunkhash].js'
@@ -17,9 +20,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                loader: 'babel-loader'
             },
             {
                 test: /\.scss$/,
@@ -36,6 +37,10 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
         new MiniCssExtractPlugin({
             filename: 'style.[contenthash].css'
         }),
@@ -52,4 +57,4 @@ module.exports = {
         }),
         new WebpackMd5Hash()
     ]
-}
+};

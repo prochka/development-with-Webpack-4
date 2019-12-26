@@ -1,6 +1,6 @@
 // Webpack v4
 const path =                    require('path');
-const ProvidePlugin =           require('webpack-provide-global-plugin');
+const Webpack =                 require('webpack');
 const MiniCssExtractPlugin =    require('mini-css-extract-plugin');
 const FileManagerPlugin =       require('filemanager-webpack-plugin');
 const {CleanWebpackPlugin} =    require('clean-webpack-plugin');
@@ -23,8 +23,20 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                use: [
+                    {
+                        loader: 'file-loader?name=./fonts/OpenSans/[name].[ext]'
+                    }
+                ]
+            },
+            {
                 test: /\.scss$/,
                 use:  [  'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
@@ -37,10 +49,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        }),
         new MiniCssExtractPlugin({
             filename: 'style.[contenthash].css'
         }),
@@ -48,6 +56,11 @@ module.exports = {
             onEnd: {
                 copy: []
             }
+        }),
+        new Webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
         }),
         new HtmlWebpackPlugin({
             inject: false,
